@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package AwsAPI;
+
+message GetObjectsRequest {
+  string bucket = 1;
+}
+
+message ObjectReply {
+  string name = 1;
+  string etag = 2;
+}
+
+service S3 {
+  rpc GetObjects (GetObjectsRequest) returns (stream ObjectReply) {}
+}
