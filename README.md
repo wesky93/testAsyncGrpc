@@ -18,7 +18,10 @@
 ## scenario
 1. example server - no i/o only computing logic
 2. request s3 objects list - network i/o
+    - bucket have 893 objects
 3. request s3 objects & save monogoDB
+    - bucket have 893 objects
+
 
 ## generate proto file
 you must add two option
@@ -32,6 +35,10 @@ python -m grpc_tools.protoc -I. --python_out=. --python_grpc_out=. --grpc_python
 ## How to test?
 1. [download ghz](https://github.com/bojand/ghz/releases) 
 2. start server
+    - python sync_server.py -w 1 
+    - python sync_server.py -w 10 
+    - python async_server.py
+    - python async_server.py -l uvloop
 3. run ghz
 
 ## summary

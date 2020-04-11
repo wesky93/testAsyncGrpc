@@ -17,7 +17,7 @@ class S3(AwsAPI_pb2_grpc.S3Servicer):
         bucket = s3resource.Bucket(request.bucket)
         total_count = 0
         for obj in bucket.objects.all():
-            print(obj)
+            print(obj.key,obj.e_tag)
             total_count += 1
         print(total_count)
         return AwsAPI_pb2.ObjectReply(count=total_count)
