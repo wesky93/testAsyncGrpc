@@ -12,7 +12,8 @@ import grpc
 class S3(AwsAPI_pb2_grpc.S3Servicer):
 
     def GetObjects(self, request, context):
-        s3resource = boto3.resource('s3')
+        session = boto3.Session()
+        s3resource = session.resource('s3')
         bucket = s3resource.Bucket(request.bucket)
         for obj in bucket.objects.all():
             yield AwsAPI_pb2.ObjectReply(name=obj.key,etag=obj.e_tag)

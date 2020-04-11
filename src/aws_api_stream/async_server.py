@@ -14,11 +14,12 @@ class S3(AwsAPI_grpc.S3Base):
 
     async def GetObjects(self, stream: Stream):
         request = await stream.recv_message()
-        async with aioboto3.resource('s3') as s3resource:
-            bucket = await s3resource.Bucket(request.bucket)
-            async for obj in bucket.objects.all():
-                etag = await obj.e_tag
-                await stream.send_message(AwsAPI_pb2.ObjectReply(name=obj.key, etag=etag))
+        async with aioboto3.Session() as session:
+            async with session.resource('s3') as s3resource:
+                bucket = await s3resource.Bucket(request.bucket)
+                async for obj in bucket.objects.all():
+                    etag = await obj.e_tag
+                    await stream.send_message(AwsAPI_pb2.ObjectReply(name=obj.key, etag=etag))
 
 
 async def main(*, host='127.0.0.1', port=50051):
@@ -31,7 +32,7 @@ async def main(*, host='127.0.0.1', port=50051):
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--loop', '-l', type=str, required=True, dest='loop', default='asyncio')
+    parser.add_argument('--loop', '-l', type=str, dest='loop', default='asyncio')
     return parser.parse_args()
 
 

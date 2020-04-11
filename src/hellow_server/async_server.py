@@ -28,7 +28,7 @@ async def main(*, host='127.0.0.1', port=50051):
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--loop', '-l', type=str, required=True, dest='loop', default='asyncio')
+    parser.add_argument('--loop', '-l', type=str,  dest='loop', default='asyncio')
     return parser.parse_args()
 
 

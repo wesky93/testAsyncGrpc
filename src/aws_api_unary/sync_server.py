@@ -12,12 +12,14 @@ import grpc
 class S3(AwsAPI_pb2_grpc.S3Servicer):
 
     def GetObjects(self, request, context):
-        s3resource = boto3.resource('s3')
+        session = boto3.Session()
+        s3resource = session.resource('s3')
         bucket = s3resource.Bucket(request.bucket)
         total_count = 0
         for obj in bucket.objects.all():
             print(obj)
             total_count += 1
+        print(total_count)
         return AwsAPI_pb2.ObjectReply(count=total_count)
 
 
