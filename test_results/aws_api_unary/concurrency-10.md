@@ -9,6 +9,16 @@
 ```
 
 # summary
+|                  | sync grpcio server(max 1 worker) | sync grpcio server(max 10 worker) | async grpclib server | async grpclib server(with uvloop) |
+|------------------|----------------------------------|-----------------------------------|----------------------|-----------------------------------|
+| Count            | 200                              | 200                               | 200                  | 200                               |
+| OK               | 200                              | 200                               | 200                  | 200                               |
+| DeadlineExceeded | 0                                | 0                                 | 0                    | 0                                 |
+| Total            | 116.32 s                         | 65.58 s                           | 62.34 s              | 60.03 s                           |
+| Slowest          | 7.27 s                           | 4.89 s                            | 5.04 s               | 5.12 s                            |
+| Fastest          | 644.39 ms                        | 886.42 ms                         | 1.28 s               | 1.30 s                            |
+| Average          | 5.69 s                           | 3.22 s                            | 3.08 s               | 2.99 s                            |
+| Requests/sec     | 1.72                             | 3.05                              | 3.21                 | 3.33                              |
 
 
 # raw data
