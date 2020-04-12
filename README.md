@@ -143,12 +143,49 @@ python -m grpc_tools.protoc -I. --python_out=. --python_grpc_out=. --grpc_python
 
 ### aws api stream
 #### concurrency - 2 [raw data](/test_results/aws_api_stream/concurrency-2.md)
-
+|              | sync grpcio server(max 1 worker) | sync grpcio server(max 10 worker) | async grpclib server | async grpclib server(with uvloop) |
+|--------------|----------------------------------|-----------------------------------|----------------------|-----------------------------------|
+| Count        | 200                              | 200                               | 200                  | 200                               |
+| OK           | 200                              | 200                               | 200                  | 109                               |
+| Unavailable  | 0                                | 0                                 | 0                    | 91                                |
+| Total        | 121.00 s                         | 90.31 s                           | 85.28 s              | 48.39 s                           |
+| Slowest      | 2.40 s                           | 2.18 s                            | 2.08 s               | 1.72 s                            |
+| Fastest      | 654.55 ms                        | 552.69 ms                         | 500.94 ms            | 451.07 ms                         |
+| Average      | 1.21 s                           | 900.35 ms                         | 851.79 ms            | 483.83 ms                         |
+| Requests/sec | 1.65                             | 2.21                              | 2.35                 | 4.13                              |
 
 #### concurrency - 10 [raw data](/test_results/aws_api_stream/concurrency-10.md)
-
+|              | sync grpcio server(max 1 worker) | sync grpcio server(max 10 worker) | async grpclib server | async grpclib server(with uvloop) |
+|--------------|----------------------------------|-----------------------------------|----------------------|-----------------------------------|
+| Count        | 200                              | 200                               | 200                  | 200                               |
+| OK           | 200                              | 200                               | 55                   | 57                                |
+| Unavailable  | 0                                | 0                                 | 145                  | 143                               |
+| Total        | 122.18 s                         | 72.01 s                           | 52.96 s              | 51.04 s                           |
+| Slowest      | 8.62 s                           | 5.03 s                            | 4.06 s               | 3.57 s                            |
+| Fastest      | 659.90 ms                        | 1.59 s                            | 574.99 ms            | 1.52 s                            |
+| Average      | 5.98 s                           | 3.54 s                            | 2.49 s               | 2.41 s                            |
+| Requests/sec | 1.64                             | 2.78                              | 3.78                 | 3.92                              |
 
 #### concurrency - 25 [raw data](/test_results/aws_api_stream/concurrency-25.md)
-
+|              | sync grpcio server(max 1 worker) | sync grpcio server(max 10 worker) | async grpclib server | async grpclib server(with uvloop) |
+|--------------|----------------------------------|-----------------------------------|----------------------|-----------------------------------|
+| Count        | 200                              | 200                               | 200                  | 200                               |
+| OK           | 200                              | 200                               | 34                   | 39                                |
+| Unavailable  | 0                                | 0                                 | 166                  | 161                               |
+| Total        | 116.13 s                         | 74.96 s                           | 56.88 s              | 57.44 s                           |
+| Slowest      | 16.84 s                          | 14.34 s                           | 9.16 s               | 9.61 s                            |
+| Fastest      | 1.08 s                           | 2.48 s                            | 2.60 s               | 2.05 s                            |
+| Average      | 13.69 s                          | 8.90 s                            | 6.63 s               | 6.79 s                            |
+| Requests/sec | 1.72                             | 2.67                              | 3.52                 | 3.48                              |
 
 #### concurrency - 50 [raw data](/test_results/aws_api_stream/concurrency-50.md)
+|              | sync grpcio server(max 1 worker) | sync grpcio server(max 10 worker) | async grpclib server | async grpclib server(with uvloop) |
+|--------------|----------------------------------|-----------------------------------|----------------------|-----------------------------------|
+| Count        | 200                              | 200                               | 200                  | 200                               |
+| OK           | 200                              | 200                               | 50                   | 51                                |
+| Unavailable  | 0                                | 0                                 | 150                  | 149                               |
+| Total        | 116.42 s                         | 72.87 s                           | 51.91 s              | 48.47 s                           |
+| Slowest      | 30.51 s                          | 19.55 s                           | 15.30 s              | 14.42 s                           |
+| Fastest      | 566.16 ms                        | 3.51 s                            | 4.71 s               | 5.03 s                            |
+| Average      | 25.48 s                          | 16.44 s                           | 11.94 s              | 11.31 s                           |
+| Requests/sec | 1.72                             | 2.74                              | 3.85                 | 4.13                              |
