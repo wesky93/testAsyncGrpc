@@ -43,28 +43,46 @@ python -m grpc_tools.protoc -I. --python_out=. --python_grpc_out=. --grpc_python
 
 ## summary
 ### hello server
-|                  | sync<br>grpcio server(max 1 worker) | sync<br>grpcio server(max 10 worker) | async<br>grpclib server | async<br>grpclib server(with uvloop) |
-|------------------|-------------------------------------|--------------------------------------|-------------------------|--------------------------------------|
-| Count            | 200                                 | 200                                  | 200                     | 200                                  |
-| OK               | 200                                 | 200                                  | 200                     | 200                                  |
-| DeadlineExceeded | 0                                   | 0                                    | 0                       | 0                                    |
-| Total            | 110.36 ms                           | 91.11 ms                             | 215.40 ms               | 152.43 ms                            |
-| Slowest          | 30.88 ms                            | 28.59 ms                             | 68.36 ms                | 40.99 ms                             |
-| Fastest          | 4.59 ms                             | 10.06 ms                             | 16.49 ms                | 8.06 ms                              |
-| Average          | 24.34 ms                            | 19.60 ms                             | 48.46 ms                | 34.86 ms                             |
-| Requests/sec     | 1812.29                             | 2195.03                              | 928.52                  | 1312.04                              |
+#### concurrency - 2 [raw data](/test_results/hellow_server/concurrency-2.md)
+|                  | sync grpcio server(max 1 worker) | sync grpcio server(max 10 worker) | async grpclib server | async grpclib server(with uvloop) |
+|------------------|----------------------------------|-----------------------------------|----------------------|-----------------------------------|
+| Count            | 200                              | 200                               | 200                  | 200                               |
+| OK               | 200                              | 200                               | 200                  | 200                               |
+| DeadlineExceeded | 0                                | 0                                 | 0                    | 0                                 |
+| Total            | 71.90 ms                         | 118.74 ms                         | 182.37 ms            | 178.11 ms                         |
+| Slowest          | 7.51 ms                          | 7.97 ms                           | 4.61 ms              | 4.55 ms                           |
+| Fastest          | 0.41 ms                          | 0.55 ms                           | 1.13 ms              | 0.88 ms                           |
+| Average          | 0.62 ms                          | 1.09 ms                           | 1.73 ms              | 1.69 ms                           |
+| Requests/sec     | 2781.69                          | 1684.29                           | 1096.66              | 1122.91                           |
+
+#### concurrency - 10
 
 
-### get s3 objects
-|                  | sync<br>grpcio server(max 1 worker) | sync<br>grpcio server(max 10 worker) | async<br>grpclib server | async<br>grpclib server(with uvloop) |
-|------------------|-------------------------------------|--------------------------------------|-------------------------|--------------------------------------|
-| Count            | 200                                 | 200                                  | 200                     | 200                                  |
-| OK               | 42                                  | 200                                  | 200                     | 200                                  |
-| DeadlineExceeded | 158                                 | 0                                    | 0                       | 0                                    |
-| Total            | 80.02 s                             | 60.87 s                              | 44.50 s                 | 41.66 s                              |
-| Slowest          | 20.00 s                             | 17.62 s                              | 16.57 s                 | 19.62 s                              |
-| Fastest          | 1.22 s                              | 3.97 s                               | 1.78 s                  | 1.32 s                               |
-| Average          | 19.16 s                             | 13.74 s                              | 9.96 s                  | 10.21 s                              |
-| Requests/sec     | 2.50                                | 3.29                                 | 4.49                    | 4.80                                 |
+#### concurrency - 25
 
-# raw result
+
+#### concurrency - 50
+
+### aws api unary
+#### concurrency - 2
+|
+#### concurrency - 10
+
+
+#### concurrency - 25
+
+
+#### concurrency - 50
+
+
+### aws api stream
+#### concurrency - 2
+
+
+#### concurrency - 10
+
+
+#### concurrency - 25
+
+
+#### concurrency - 50
