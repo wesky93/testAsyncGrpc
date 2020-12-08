@@ -1,0 +1,10 @@
+{
+  "rps": 200,
+  "total": 200,
+  "insecure": true,
+  "proto":"./src/aws_api_stream/AwsAPI.proto",
+  "call": "AwsAPI.S3.GetObjects",
+  "data": {"bucket":"commoncrawl","region":"us-east-1"},
+  "output_format": "json",
+  "connect-timeout":"120s"
+}

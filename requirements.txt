@@ -1,6 +1,6 @@
-grpcio~=1.28.1
-boto3~=1.12.39
-grpclib~=0.3.1
-aioboto3~=8.0.2
+grpcio>=1.28.1
+boto3>=1.12.39
+grpclib>=0.3.1
+aioboto3>=8.0.2
 grpcio-tools
 uvloop

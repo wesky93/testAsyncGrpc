@@ -13,10 +13,11 @@ class S3(AwsAPI_pb2_grpc.S3Servicer):
 
     def GetObjects(self, request, context):
         session = boto3.Session()
-        s3resource = session.resource('s3')
+        s3resource = session.resource('s3',region_name=request.region)
         bucket = s3resource.Bucket(request.bucket)
-        for obj in bucket.objects.all():
+        for obj in bucket.objects.limit(50):
             yield AwsAPI_pb2.ObjectReply(name=obj.key,etag=obj.e_tag)
+        print('request done')
 
 
 def serve(workers:int):

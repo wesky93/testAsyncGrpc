@@ -1,36 +1,52 @@
-# Grpc server bencmarking
+# Python Grpc server bencmark
 
 
-## sync server(originer)
-### lib
-- [grpcio](https://pypi.org/project/grpcio/) == 1.28.1
-- boto3
-
-## async server(originer)
-### lib
-- grpclib
-- aioboto
-- uvloop
 
 ## performance test tool
 - [ghz](https://github.com/bojand/ghz)
 
-## scenario
-1. example server - no i/o only computing logic
-2. request s3 objects list - network i/o
-    - bucket have 893 objects
-3. request s3 objects & save monogoDB
-    - bucket have 893 objects
+## scenarios
+1. computing
+    - Greeter service - no i/o only computing logic
+2. network i/o
+    - s3 service - get s3 objects list(it will get 50 objects per request)
+    - mongo service - data write from mongodb
 
+## Condition
+- total request : 200
+- rps
+    - 10
+    - 25
+    - 50
+    - 100
+    - 200
+
+- server
+    - grpcio(sync, max worker 1)
+    - grpcio(sync, max worker 50)
+    - grpcio(async)
+    - grpcio(async) + uvloop
+    
 
 ## generate proto file
-you must add two option
-- `grpc_python_out=.` - grpcio sync stubs
-- `python_grpc_out=.` - grpclib async stubs
 
 ```bash
-python -m grpc_tools.protoc -I. --python_out=. --python_grpc_out=. --grpc_python_out=. helloworld.proto
+python -m grpc_tools.protoc -I. --python_out=. --python_grpc_out=. --grpc_python_out=. <proto_file>.proto
 ```
+
+## test CMD
+### on linux
+```bash
+./bin/ghz_linux/
+```
+
+### on mac
+```bash
+./bin/ghz_mac  -t 0 -r 10 -n 200 --insecure --proto ./src/aws_api_stream/AwsAPI.proto --call AwsAPI.S3.GetObjects -d '{"bucket":"commoncrawl","region":"us-east-1"}' 0.0.0.0:50051 -o ./test_results/aws_api_stream/result.json -O json
+
+```
+
+
 
 ## How to test?
 1. [download ghz](https://github.com/bojand/ghz/releases) 

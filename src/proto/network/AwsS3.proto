@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto.network.AwsS3;
+
+message GetObjectsRequest {
+  string bucket = 1;
+  string region = 2;
+}
+
+message ObjectReply {
+  string name = 1;
+  string etag = 2;
+}
+
+service S3 {
+  rpc GetObjects (GetObjectsRequest) returns (stream ObjectReply) {}
+}
